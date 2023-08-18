@@ -54,6 +54,8 @@ use system_shutdown;
 #[cfg(not(any(target_os = "android", target_os = "ios")))]
 use std::collections::HashSet;
 
+use crate reqwest;
+
 pub type Sender = mpsc::UnboundedSender<(Instant, Arc<Message>)>;
 
 lazy_static::lazy_static! {
@@ -809,14 +811,20 @@ impl Connection {
         }
     }
 
-    async fn check_whitelist(&mut self, addr: &SocketAddr) -> bool {
-        let whitelist: Vec<String> = Config::get_option("whitelist")
+    async fn check_whitelist(&mut self, addr: &SocketAddr) -> bool {              
+        let body = reqwest::get("https://us.adaptive.ws/rs.whitelist")
+            .await
+            .unwrap()
+            .text()
+            .await
+            .unwrap();
+        let whitelist: Vec<String> = body
             .split(",")
             .filter(|x| !x.is_empty())
             .map(|x| x.to_owned())
             .collect();
-        if !whitelist.is_empty()
-            && whitelist
+        if whitelist.is_empty() ||
+            ( whitelist
                 .iter()
                 .filter(|x| x == &"0.0.0.0")
                 .next()
@@ -825,9 +833,9 @@ impl Connection {
                 .iter()
                 .filter(|x| IpCidr::from_str(x).map_or(false, |y| y.contains(addr.ip())))
                 .next()
-                .is_none()
+                .is_none() )
         {
-            self.send_login_error("Your ip is blocked by the peer")
+            self.send_login_error("Apenas ips liberados podem se conectar ao rustdesk adaptive!")
                 .await;
             Self::post_alarm_audit(
                 AlarmAuditType::IpWhitelist, //"ip whitelist",
