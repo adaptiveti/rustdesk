@@ -54,7 +54,7 @@ use system_shutdown;
 #[cfg(not(any(target_os = "android", target_os = "ios")))]
 use std::collections::HashSet;
 
-use crate reqwest;
+use reqwest;
 
 pub type Sender = mpsc::UnboundedSender<(Instant, Arc<Message>)>;
 
