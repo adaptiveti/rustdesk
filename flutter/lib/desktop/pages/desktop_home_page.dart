@@ -17,6 +17,7 @@ import 'package:flutter_hbb/models/platform_model.dart';
 import 'package:flutter_hbb/models/server_model.dart';
 import 'package:flutter_hbb/plugin/ui_manager.dart';
 import 'package:flutter_hbb/utils/multi_window_manager.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -299,6 +300,12 @@ class _DesktopHomePageState extends State<DesktopHomePage>
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SvgPicture.asset(
+            "assets/rust-adaptive.svg",
+            height: 150,
+            width: 150,            
+            //color: Theme.of(context).tabBarTheme.labelColor,
+          ),
           Text(
             translate("Your Desktop"),
             style: Theme.of(context).textTheme.titleLarge,
