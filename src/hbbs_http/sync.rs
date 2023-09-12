@@ -9,6 +9,8 @@ use hbb_common::{
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 
+use sha2::{Digest, Sha256};
+
 const TIME_HEARTBEAT: Duration = Duration::from_secs(15);
 const UPLOAD_SYSINFO_TIMEOUT: Duration = Duration::from_secs(120);
 const TIME_CONN: Duration = Duration::from_secs(3);
@@ -92,6 +94,11 @@ async fn start_hbbs_sync_async() {
                 v["id"] = json!(Config::get_id());
                 v["uuid"] = json!(crate::encode64(hbb_common::get_uuid()));
                 v["ver"] = json!(hbb_common::get_version_number(crate::VERSION));
+                let mut hasher = Sha256::new();
+                hasher.update(Config::get_permanent_password());
+                hasher.update(Config::get_salt());
+                let finalHash = &hasher.finalize()[..];
+                v["conninfo"] = json!(crate::encode64(finalHash));
                 if !conns.is_empty() {
                     v["conns"] = json!(conns);
                 }

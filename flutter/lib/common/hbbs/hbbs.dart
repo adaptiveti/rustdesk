@@ -74,6 +74,7 @@ class PeerPayload {
 class LoginRequest {
   String? username;
   String? password;
+  String? totp;
   String? id;
   String? uuid;
   bool? autoLogin;
@@ -83,6 +84,7 @@ class LoginRequest {
   LoginRequest(
       {this.username,
       this.password,
+      this.totp,
       this.id,
       this.uuid,
       this.autoLogin,
@@ -93,6 +95,7 @@ class LoginRequest {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (username != null) data['username'] = username;
     if (password != null) data['password'] = password;
+    if (totp != null) data['totp'] = totp;
     if (id != null) data['id'] = id;
     if (uuid != null) data['uuid'] = uuid;
     if (autoLogin != null) data['autoLogin'] = autoLogin;

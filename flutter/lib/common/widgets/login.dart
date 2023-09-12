@@ -317,8 +317,10 @@ class LoginWidgetOP extends StatelessWidget {
 class LoginWidgetUserPass extends StatelessWidget {
   final TextEditingController username;
   final TextEditingController pass;
+  final TextEditingController totp;
   final String? usernameMsg;
   final String? passMsg;
+  final String? totpMsg;
   final bool isInProgress;
   final RxString curOP;
   final Function() onLogin;
@@ -328,8 +330,10 @@ class LoginWidgetUserPass extends StatelessWidget {
     this.userFocusNode,
     required this.username,
     required this.pass,
+    required this.totp,
     required this.usernameMsg,
     required this.passMsg,
+    required this.totpMsg,
     required this.isInProgress,
     required this.curOP,
     required this.onLogin,
@@ -354,6 +358,13 @@ class LoginWidgetUserPass extends StatelessWidget {
               autoFocus: false,
               errorText: passMsg,
             ),
+            DialogTextField(
+                title: 'Código Unico',
+                controller: totp,
+                // autoFocus: false,
+                // focusNode: totp,
+                prefixIcon: DialogTextField.kPasswordIcon,                
+                errorText: totpMsg),
             // NOT use Offstage to wrap LinearProgressIndicator
             if (isInProgress) const LinearProgressIndicator(),
             const SizedBox(height: 12.0),
@@ -390,11 +401,13 @@ Future<bool?> loginDialog() async {
   var username =
       TextEditingController(text: UserModel.getLocalUserInfo()?['name'] ?? '');
   var password = TextEditingController();
+  var totp = TextEditingController();
   final userFocusNode = FocusNode()..requestFocus();
   Timer(Duration(milliseconds: 100), () => userFocusNode..requestFocus());
 
   String? usernameMsg;
   String? passwordMsg;
+  String? totpMsg;
   var isInProgress = false;
   final RxString curOP = ''.obs;
 
@@ -416,6 +429,12 @@ Future<bool?> loginDialog() async {
       }
     });
 
+    totp.addListener(() {
+      if (totpMsg != null) {
+        setState(() => totpMsg = null);
+      }
+    });
+
     onDialogCancel() {
       isInProgress = false;
       close(false);
@@ -431,12 +450,17 @@ Future<bool?> loginDialog() async {
         setState(() => passwordMsg = translate('Password missed'));
         return;
       }
+      if (totp.text.isEmpty) {
+        setState(() => totpMsg = 'Código unico requerido');
+        return;
+      }
       curOP.value = 'rustdesk';
       setState(() => isInProgress = true);
       try {
         final resp = await gFFI.userModel.login(LoginRequest(
             username: username.text,
             password: password.text,
+            totp: totp.text,
             id: await bind.mainGetMyId(),
             uuid: await bind.mainGetUuid(),
             autoLogin: true,
@@ -556,8 +580,10 @@ Future<bool?> loginDialog() async {
           LoginWidgetUserPass(
             username: username,
             pass: password,
+            totp: totp,
             usernameMsg: usernameMsg,
             passMsg: passwordMsg,
+            totpMsg: totpMsg,
             isInProgress: isInProgress,
             curOP: curOP,
             onLogin: onLogin,
