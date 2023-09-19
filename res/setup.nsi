@@ -11,7 +11,7 @@
 ####################################################################
 # File Info
 
-!define PRODUCT_NAME "RustDesk"
+!define PRODUCT_NAME "SuporteAdaptive"
 !define PRODUCT_DESCRIPTION "Installer for ${PRODUCT_NAME}"
 !define COPYRIGHT "Copyright © 2021"
 !define VERSION "1.1.6"
@@ -35,7 +35,7 @@ ShowInstDetails show
 RequestExecutionLevel admin
 SetOverwrite on
  
-InstallDir "$PROGRAMFILES64\${PRODUCT_NAME}"
+InstallDir "$COMMONPROGRAMDATA\${PRODUCT_NAME}"
 
 ####################################################################
 # Pages

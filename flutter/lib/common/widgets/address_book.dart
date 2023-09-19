@@ -270,11 +270,11 @@ class _AddressBookState extends State<AddressBook> {
 
   void _showMenu(RelativeRect pos) {
     final items = [
-      getEntry(translate("Add ID"), abAddId),
-      getEntry(translate("Add Tag"), abAddTag),
+      // getEntry(translate("Add ID"), abAddId),
+      // getEntry(translate("Add Tag"), abAddTag),
       getEntry(translate("Unselect all tags"), gFFI.abModel.unsetSelectedTags),
       sortMenuItem(),
-      syncMenuItem(),
+      // syncMenuItem(),
     ];
 
     mod_menu.showMenu(
