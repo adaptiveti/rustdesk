@@ -359,7 +359,7 @@ class LoginWidgetUserPass extends StatelessWidget {
               errorText: passMsg,
             ),
             DialogTextField(
-                title: 'Código Unico',
+                title: 'Token',
                 controller: totp,
                 // autoFocus: false,
                 // focusNode: totp,
@@ -451,7 +451,7 @@ Future<bool?> loginDialog() async {
         return;
       }
       if (totp.text.isEmpty) {
-        setState(() => totpMsg = 'Código unico requerido');
+        setState(() => totpMsg = 'Token tfa requerido');
         return;
       }
       curOP.value = 'rustdesk';

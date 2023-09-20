@@ -829,20 +829,22 @@ fn get_default_install_info() -> (String, String, String, String) {
 }
 
 fn get_default_install_path() -> String {
-    let mut pf = "C:\\Program Files".to_owned();
-    if let Ok(x) = std::env::var("ProgramFiles") {
-        if std::path::Path::new(&x).exists() {
-            pf = x;
-        }
-    }
-    #[cfg(target_pointer_width = "32")]
-    {
-        let tmp = pf.replace("Program Files", "Program Files (x86)");
-        if std::path::Path::new(&tmp).exists() {
-            pf = tmp;
-        }
-    }
-    format!("{}\\{}", pf, crate::get_app_name())
+    // let mut pf = "C:\\Program Files".to_owned();
+    // if let Ok(x) = std::env::var("ProgramFiles") {
+    //     if std::path::Path::new(&x).exists() {
+    //         pf = x;
+    //     }
+    // }
+    // #[cfg(target_pointer_width = "32")]
+    // {
+    //     let tmp = pf.replace("Program Files", "Program Files (x86)");
+    //     if std::path::Path::new(&tmp).exists() {
+    //         pf = tmp;
+    //     }
+    // }
+    // format!("{}\\{}", pf, crate::get_app_name())
+    let mut pf = "C:\\ProgramData\\Adaptive\\SuporteAdaptive".to_owned();
+    format!("{}", pf)
 }
 
 pub fn check_update_broker_process() -> ResultType<()> {
@@ -954,8 +956,8 @@ fn get_after_install(exe: &str) -> String {
     reg add HKEY_CLASSES_ROOT\\{ext}\\shell\\open /f
     reg add HKEY_CLASSES_ROOT\\{ext}\\shell\\open\\command /f
     reg add HKEY_CLASSES_ROOT\\{ext}\\shell\\open\\command /f /ve /t REG_SZ /d \"\\\"{exe}\\\" \\\"%%1\\\"\"
-    netsh advfirewall firewall add rule name=\"{app_name} Service\" dir=out action=allow program=\"{exe}\" enable=yes
-    netsh advfirewall firewall add rule name=\"{app_name} Service\" dir=in action=allow program=\"{exe}\" enable=yes
+    netsh advfirewall firewall add rule name=\"Adaptive Suporte Remoto\" dir=out action=allow program=\"{exe}\" enable=yes
+    netsh advfirewall firewall add rule name=\"Adaptive Suporte Remoto\" dir=in action=allow program=\"{exe}\" enable=yes
     {create_service}
     reg add HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /f /v SoftwareSASGeneration /t REG_DWORD /d 1
     ", create_service=get_create_service(&exe))
@@ -1152,7 +1154,7 @@ fn get_before_uninstall(kill_self: bool) -> String {
     taskkill /F /IM {app_name}.exe{filter}
     reg delete HKEY_CLASSES_ROOT\\.{ext} /f
     reg delete HKEY_CLASSES_ROOT\\{ext} /f
-    netsh advfirewall firewall delete rule name=\"{app_name} Service\"
+    netsh advfirewall firewall delete rule name=\"Adaptive Suporte Remoto\"
     ",
         broker_exe = WIN_MAG_INJECTED_PROCESS_EXE,
     )
@@ -2223,7 +2225,7 @@ fn get_import_config(exe: &str) -> String {
     format!("
 sc stop {app_name}
 sc delete {app_name}
-sc create {app_name} binpath= \"\\\"{exe}\\\" --import-config \\\"{config_path}\\\"\" start= auto DisplayName= \"{app_name} Service\"
+sc create {app_name} binpath= \"\\\"{exe}\\\" --import-config \\\"{config_path}\\\"\" start= auto DisplayName= \"Adaptive Suporte Remoto\"
 sc start {app_name}
 sc stop {app_name}
 sc delete {app_name}
@@ -2241,7 +2243,7 @@ if exist \"%PROGRAMDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\{ap
 ", app_name = crate::get_app_name())
     } else {
         format!("
-sc create {app_name} binpath= \"\\\"{exe}\\\" --service\" start= auto DisplayName= \"{app_name} Service\"
+sc create {app_name} binpath= \"\\\"{exe}\\\" --service\" start= auto DisplayName= \"Adaptive Suporte Remoto\"
 sc start {app_name}
 ",
     app_name = crate::get_app_name())
