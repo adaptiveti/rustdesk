@@ -1,11 +1,11 @@
 [package]
-name = "SuporteAdaptive"
+name = "rustdesk"
 version = "1.2.2"
 authors = ["adaptive <info@adaptive.com.br>"]
 edition = "2021"
 build= "build.rs"
 description = "A remote control software."
-default-run = "SuporteAdaptive"
+default-run = "rustdesk"
 
 [lib]
 name = "librustdesk"
