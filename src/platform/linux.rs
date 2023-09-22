@@ -241,17 +241,17 @@ fn set_x11_env(desktop: &Desktop) {
 #[inline]
 fn stop_rustdesk_servers() {
     let _ = run_cmds(&format!(
-        r##"ps -ef | grep -E 'rustdesk +--server' | awk '{{printf("kill -9 %d\n", $2)}}' | bash"##,
+        r##"ps -ef | grep -E 'SuporteAdaptive +--server' | awk '{{printf("kill -9 %d\n", $2)}}' | bash"##,
     ));
 }
 
 #[inline]
 fn stop_subprocess() {
     let _ = run_cmds(&format!(
-        r##"ps -ef | grep '/etc/rustdesk/xorg.conf' | grep -v grep | awk '{{printf("kill -9 %d\n", $2)}}' | bash"##,
+        r##"ps -ef | grep '/etc/SuporteAdaptive/xorg.conf' | grep -v grep | awk '{{printf("kill -9 %d\n", $2)}}' | bash"##,
     ));
     let _ = run_cmds(&format!(
-        r##"ps -ef | grep -E 'rustdesk +--cm-no-ui' | grep -v grep | awk '{{printf("kill -9 %d\n", $2)}}' | bash"##,
+        r##"ps -ef | grep -E 'SuporteAdaptive +--cm-no-ui' | grep -v grep | awk '{{printf("kill -9 %d\n", $2)}}' | bash"##,
     ));
 }
 
@@ -684,7 +684,7 @@ pub fn exec_privileged(args: &[&str]) -> ResultType<Child> {
 }
 
 pub fn check_super_user_permission() -> ResultType<bool> {
-    let file = "/usr/share/rustdesk/files/polkit";
+    let file = "/usr/share/SuporteAdaptive/files/polkit";
     let arg;
     if Path::new(file).is_file() {
         arg = file;
@@ -1064,7 +1064,7 @@ mod desktop {
 
         fn set_is_subprocess(&mut self) {
             self.is_rustdesk_subprocess = false;
-            let cmd = "ps -ef | grep 'rustdesk/xorg.conf' | grep -v grep | wc -l";
+            let cmd = "ps -ef | grep 'SuporteAdaptive/xorg.conf' | grep -v grep | wc -l";
             if let Ok(res) = run_cmds(cmd) {
                 if res.trim() != "0" {
                     self.is_rustdesk_subprocess = true;
@@ -1160,7 +1160,7 @@ fn switch_service(stop: bool) -> String {
     let home = std::env::var("HOME").unwrap_or_default();
     Config::set_option("stop-service".into(), if stop { "Y" } else { "" }.into());
     if home != "/root" && !Config::get().is_empty() {
-        format!("cp -f {home}/.config/rustdesk/RustDesk.toml /root/.config/rustdesk/; cp -f {home}/.config/rustdesk/RustDesk2.toml /root/.config/rustdesk/;")
+        format!("cp -f {home}/.config/SuporteAdaptive/RustDesk.toml /root/.config/SuporteAdaptive/; cp -f {home}/.config/SuporteAdaptive/RustDesk2.toml /root/.config/SuporteAdaptive/;")
     } else {
         "".to_owned()
     }
@@ -1173,7 +1173,7 @@ pub fn uninstall_service(show_new_window: bool) -> bool {
     log::info!("Uninstalling service...");
     let cp = switch_service(true);
     if !run_cmds_pkexec(&format!(
-        "systemctl disable rustdesk; systemctl stop rustdesk; {cp}"
+        "systemctl disable SuporteAdaptive; systemctl stop SuporteAdaptive; {cp}"
     )) {
         Config::set_option("stop-service".into(), "".into());
         return true;
@@ -1191,7 +1191,7 @@ pub fn install_service() -> bool {
     log::info!("Installing service...");
     let cp = switch_service(false);
     if !run_cmds_pkexec(&format!(
-        "{cp} systemctl enable rustdesk; systemctl start rustdesk;"
+        "{cp} systemctl enable SuporteAdaptive; systemctl start SuporteAdaptive;"
     )) {
         Config::set_option("stop-service".into(), "Y".into());
         return true;
@@ -1203,7 +1203,7 @@ pub fn install_service() -> bool {
 fn check_if_stop_service() {
     if Config::get_option("stop-service".into()) == "Y" {
         allow_err!(run_cmds(
-            "systemctl disable rustdesk; systemctl stop rustdesk"
+            "systemctl disable SuporteAdaptive; systemctl stop SuporteAdaptive"
         ));
     }
 }
@@ -1211,7 +1211,7 @@ fn check_if_stop_service() {
 pub fn check_autostart_config() -> ResultType<()> {
     let home = std::env::var("HOME").unwrap_or_default();
     let path = format!("{home}/.config/autostart");
-    let file = format!("{path}/rustdesk.desktop");
+    let file = format!("{path}/SuporteAdaptive.desktop");
     std::fs::create_dir_all(&path).ok();
     if !Path::new(&file).exists() {
         // write text to the desktop file
@@ -1220,7 +1220,7 @@ pub fn check_autostart_config() -> ResultType<()> {
             "
 [Desktop Entry]
 Type=Application
-Exec=rustdesk --tray
+Exec=SuporteAdaptive --tray
 NoDisplay=false
         "
             .as_bytes(),

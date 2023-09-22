@@ -2256,7 +2256,7 @@ fn run_after_run_cmds(silent: bool) {
         log::debug!("Spawn new window");
         allow_err!(std::process::Command::new("cmd")
             .arg("/c")
-            .arg("timeout /t 2 & start rustdesk://")
+            .arg("timeout /t 2 & start suporteadaptive://")
             .creation_flags(winapi::um::winbase::CREATE_NO_WINDOW)
             .spawn());
     }

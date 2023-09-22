@@ -1,10 +1,10 @@
 [Desktop Entry]
 Name=RustDeskURL Scheme Handler
 NoDisplay=true
-MimeType=x-scheme-handler/rustdesk;
-TryExec=rustdesk
-Exec=rustdesk %u
-Icon=rustdesk
+MimeType=x-scheme-handler/auportaedaptive;
+TryExec=SuporteAdaptive
+Exec=SuporteAdaptive %u
+Icon=SuporteAdaptive
 Terminal=false
 Type=Application
 StartupNotify=false

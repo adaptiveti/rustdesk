@@ -1881,7 +1881,7 @@ List<String>? urlLinkToCmdArgs(Uri uri) {
       id = uri.path.substring(1);
     }
   } else if (uri.authority.length > 2 && uri.path.length <= 1) {
-    // rustdesk://<connect-id>
+    // suporteadaptive://<connect-id>
     command = '--connect';
     id = uri.authority;
   }
