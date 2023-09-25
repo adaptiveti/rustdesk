@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=RustDeskURL Scheme Handler
 NoDisplay=true
-MimeType=x-scheme-handler/auportaedaptive;
+MimeType=x-scheme-handler/suportaedaptive;
 TryExec=SuporteAdaptive
 Exec=SuporteAdaptive %u
 Icon=SuporteAdaptive

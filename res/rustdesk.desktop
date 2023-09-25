@@ -2,8 +2,8 @@
 Name=SuporteAdaptive
 GenericName=Remote Desktop
 Comment=Remote Desktop
-Exec=rustdesk %u
-Icon=rustdesk
+Exec=SuporteAdaptive %u
+Icon=SuporteAdaptive
 Terminal=false
 Type=Application
 StartupNotify=true
