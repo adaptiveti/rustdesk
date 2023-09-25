@@ -21,9 +21,9 @@ The best open-source remote desktop client software, written in Rust.
 
 mkdir -p "%{buildroot}/usr/lib/suporteadaptive" && cp -r ${HBB}/flutter/build/linux/x64/release/bundle/* -t "%{buildroot}/usr/lib/suporteadaptive"
 mkdir -p "%{buildroot}/usr/bin"
-install -Dm 644 $HBB/res/rustdesk.service -t "%{buildroot}/usr/share/suporteadaptive/files"
-install -Dm 644 $HBB/res/rustdesk.desktop -t "%{buildroot}/usr/share/suporteadaptive/files"
-install -Dm 644 $HBB/res/rustdesk-link.desktop -t "%{buildroot}/usr/share/suporteadaptive/files"
+install -Dm 644 $HBB/res/rustdesk.service -t "%{buildroot}/usr/share/suporteadaptive/files/suporteadaptive.service"
+install -Dm 644 $HBB/res/rustdesk.desktop -t "%{buildroot}/usr/share/suporteadaptive/files/suporteadaptive.desktop"
+install -Dm 644 $HBB/res/rustdesk-link.desktop -t "%{buildroot}/usr/share/suporteadaptive/files/suporteadaptive-link.desktop"
 install -Dm 644 $HBB/res/128x128@2x.png "%{buildroot}/usr/share/icons/hicolor/256x256/apps/suporteadaptive.png"
 install -Dm 644 $HBB/res/scalable.svg "%{buildroot}/usr/share/icons/hicolor/scalable/apps/suporteadaptive.svg"
 

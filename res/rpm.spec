@@ -24,11 +24,11 @@ mkdir -p %{buildroot}/usr/share/icons/hicolor/256x256/apps/
 mkdir -p %{buildroot}/usr/share/icons/hicolor/scalable/apps/
 install -m 755 $HBB/target/release/rustdesk %{buildroot}/usr/bin/suporteadaptive
 install $HBB/libsciter-gtk.so %{buildroot}/usr/lib/suporteadaptive/libsciter-gtk.so
-install $HBB/res/rustdesk.service %{buildroot}/usr/share/suporteadaptive/files/
+install $HBB/res/rustdesk.service %{buildroot}/usr/share/suporteadaptive/files/suporteadaptive.service
 install $HBB/res/128x128@2x.png %{buildroot}/usr/share/icons/hicolor/256x256/apps/suporteadaptive.png
 install $HBB/res/scalable.svg %{buildroot}/usr/share/icons/hicolor/scalable/apps/suporteadaptive.svg
-install $HBB/res/rustdesk.desktop %{buildroot}/usr/share/suporteadaptive/files/
-install $HBB/res/rustdesk-link.desktop %{buildroot}/usr/share/suporteadaptive/files/
+install $HBB/res/rustdesk.desktop %{buildroot}/usr/share/suporteadaptive/files/suporteadaptive.desktop
+install $HBB/res/rustdesk-link.desktop %{buildroot}/usr/share/suporteadaptive/files/suporteadaptive-link.desktop
 
 %files
 /usr/bin/suporteadaptive
