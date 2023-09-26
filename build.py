@@ -337,7 +337,7 @@ def build_flutter_deb(version, features):
     system2(
         'cp ../res/pam.d/rustdesk.debian tmpdeb/etc/pam.d/suporteadaptive')
     system2(
-        "echo \"#!/bin/sh\" >> tmpdeb/usr/share/rustdesk/files/polkit && chmod a+x tmpdeb/usr/share/rustdesk/files/polkit")
+        "echo \"#!/bin/sh\" >> tmpdeb/usr/share/suporteadaptive/files/polkit && chmod a+x tmpdeb/usr/share/suporteadaptive/files/polkit")
 
     system2('mkdir -p tmpdeb/DEBIAN')
     generate_control_file(version)
@@ -375,7 +375,7 @@ def build_deb_from_folder(version, binary_folder):
     system2(
         'cp ../res/com.rustdesk.RustDesk.policy tmpdeb/usr/share/polkit-1/actions/')
     system2(
-        "echo \"#!/bin/sh\" >> tmpdeb/usr/share/rustdesk/files/polkit && chmod a+x tmpdeb/usr/share/rustdesk/files/polkit")
+        "echo \"#!/bin/sh\" >> tmpdeb/usr/share/suporteadaptive/files/polkit && chmod a+x tmpdeb/usr/share/suporteadaptive/files/polkit")
 
     system2('mkdir -p tmpdeb/DEBIAN')
     generate_control_file(version)
