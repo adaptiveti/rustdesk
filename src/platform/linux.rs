@@ -684,7 +684,7 @@ pub fn exec_privileged(args: &[&str]) -> ResultType<Child> {
 }
 
 pub fn check_super_user_permission() -> ResultType<bool> {
-    let file = "/usr/share/SuporteAdaptive/files/polkit";
+    let file = "/usr/share/suporteadaptive/files/polkit";
     let arg;
     if Path::new(file).is_file() {
         arg = file;
