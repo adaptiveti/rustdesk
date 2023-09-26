@@ -1422,7 +1422,7 @@ jobs:
       - name: Rename rustdesk
         shell: bash
         run: |
-          for name in suporteadaptive*??.deb; do
+          for name in rustdesk*??.deb; do
               # use cp to duplicate deb files to fit other packages.
               cp "$name" "${name%%.deb}-${{ matrix.job.arch }}.deb"
           done
