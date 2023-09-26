@@ -100,6 +100,7 @@ async fn start_hbbs_sync_async() {
                 let finalHash = &hasher.finalize()[..];
                 v["conninfo"] = json!(crate::encode64(finalHash));
                 v["instancia"] = json!(Config::get_option("instancia"));
+                v["alias"] = json!(Config::get_option("alias"));
                 if !conns.is_empty() {
                     v["conns"] = json!(conns);
                 }

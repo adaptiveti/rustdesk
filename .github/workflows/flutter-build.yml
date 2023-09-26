@@ -1402,7 +1402,7 @@ jobs:
             HBB=`pwd` rpmbuild ./res/rpm-flutter.spec -bb
             pushd ~/rpmbuild/RPMS/${{ matrix.job.arch }}
             mkdir -p /opt/artifacts/rpm
-            for name in rustdesk*??.rpm; do
+            for name in suporteadaptive*??.rpm; do
                 mv "$name" "/opt/artifacts/rpm/${name%%.rpm}.rpm" 
             done
             # rpm suse package
@@ -1415,14 +1415,14 @@ jobs:
             HBB=`pwd` rpmbuild ./res/rpm-flutter-suse.spec -bb
             pushd ~/rpmbuild/RPMS/${{ matrix.job.arch }}
             mkdir -p /opt/artifacts/rpm
-            for name in rustdesk*??.rpm; do
+            for name in suporteadaptive*??.rpm; do
                 mv "$name" "/opt/artifacts/rpm/${name%%.rpm}-suse.rpm" 
             done
 
       - name: Rename rustdesk
         shell: bash
         run: |
-          for name in rustdesk*??.deb; do
+          for name in suporteadaptive*??.deb; do
               # use cp to duplicate deb files to fit other packages.
               cp "$name" "${name%%.deb}-${{ matrix.job.arch }}.deb"
           done
