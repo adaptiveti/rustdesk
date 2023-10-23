@@ -102,11 +102,10 @@ class _DesktopSettingPageState extends State<DesktopSettingPage>
       _TabInfo('General', Icons.settings_outlined, Icons.settings),
       _TabInfo('Security', Icons.enhanced_encryption_outlined,
           Icons.enhanced_encryption),
-      _TabInfo('Network', Icons.link_outlined, Icons.link),
-      _TabInfo(
-          'Display', Icons.desktop_windows_outlined, Icons.desktop_windows),
+      // _TabInfo('Network', Icons.link_outlined, Icons.link),
+      // _TabInfo('Display', Icons.desktop_windows_outlined, Icons.desktop_windows),
       _TabInfo('Account', Icons.person_outline, Icons.person),
-      _TabInfo('About', Icons.info_outline, Icons.info)
+      // _TabInfo('About', Icons.info_outline, Icons.info)
     ];
     if (bind.pluginFeatureIsEnabled()) {
       settingTabs.insert(
@@ -119,10 +118,10 @@ class _DesktopSettingPageState extends State<DesktopSettingPage>
     final children = [
       _General(),
       _Safety(),
-      _Network(),
-      _Display(),
+      // _Network(),
+      // _Display(),
       _Account(),
-      _About(),
+      // _About(),
     ];
     if (bind.pluginFeatureIsEnabled()) {
       children.insert(4, _Plugin());
@@ -261,11 +260,11 @@ class _GeneralState extends State<_General> {
           children: [
             service(),
             theme(),
-            hwcodec(),
+            // hwcodec(),
             audio(context),
             record(context),
-            _Card(title: 'Language', children: [language()]),
-            other()
+            // _Card(title: 'Language', children: [language()]),
+            // other()
           ],
         ).marginOnly(bottom: _kListViewBottomMargin));
   }
@@ -514,9 +513,9 @@ class _SafetyState extends State<_Safety> with AutomaticKeepAliveClientMixin {
                   absorbing: locked,
                   child: Column(children: [
                     permissions(context),
-                    password(context),
+                    // password(context),
                     // _Card(title: 'ID', children: [changeId()]),
-                    more(context),
+                    // more(context),
                   ]),
                 ),
               ],
